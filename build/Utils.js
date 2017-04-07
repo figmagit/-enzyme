@@ -46,10 +46,6 @@ var _objectIs = require('object-is');
 
 var _objectIs2 = _interopRequireDefault(_objectIs);
 
-var _uuid = require('uuid');
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
 var _object = require('object.entries');
 
 var _object2 = _interopRequireDefault(_object);
@@ -69,6 +65,24 @@ var _version = require('./version');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// To break the dependency on node's crypto module, we implement our own uuid.v4
+// instead of having a dependency on the uuid module (which depends on node's
+// native crypto module).
+var uuid = {
+  v4: function () {
+    function v4() {
+      // Taken from http://stackoverflow.com/a/2117523
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+      });
+    }
+
+    return v4;
+  }()
+};
 
 var ITERATOR_SYMBOL = exports.ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
 
@@ -293,7 +307,7 @@ function withSetStateAllowed(fn) {
 function splitSelector(selector) {
   // step 1: make a map of all quoted strings with a uuid
   var quotedSegments = selector.split(/[^" ]+|("[^"]*")|.*/g).filter(Boolean).reduce(function (obj, match) {
-    return (0, _object4['default'])({}, obj, _defineProperty({}, match, _uuid2['default'].v4()));
+    return (0, _object4['default'])({}, obj, _defineProperty({}, match, uuid.v4()));
   }, {});
 
   return selector

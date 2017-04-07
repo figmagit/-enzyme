@@ -2,7 +2,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import is from 'object-is';
-import uuid from 'uuid';
 import entries from 'object.entries';
 import assign from 'object.assign';
 import functionName from 'function.prototype.name';
@@ -15,6 +14,19 @@ import {
   REACT013,
   REACT15,
 } from './version';
+
+// To break the dependency on node's crypto module, we implement our own uuid.v4
+// instead of having a dependency on the uuid module (which depends on node's
+// native crypto module).
+const uuid = {
+  v4() {
+    // Taken from http://stackoverflow.com/a/2117523
+    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+    });
+  }
+}
 
 export const ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
 
