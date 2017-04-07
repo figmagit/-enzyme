@@ -291,6 +291,11 @@ function withSetStateAllowed(fn) {
   // this is currently here to circumvent a React bug where `setState()` is
   // not allowed without global being defined.
   var cleanup = false;
+  if (typeof global == 'undefined') {
+    global = function () {
+      return this;
+    }();
+  }
   if (typeof global.document === 'undefined') {
     cleanup = true;
     global.document = {};

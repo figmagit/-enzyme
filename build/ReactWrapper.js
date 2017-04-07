@@ -81,6 +81,11 @@ var ReactWrapper = function () {
 
     _classCallCheck(this, ReactWrapper);
 
+    if (typeof global == 'undefined') {
+      global = function () {
+        return this;
+      }();
+    }
     if (!global.window && !global.document) {
       throw new Error('It looks like you called `mount()` without a global document being loaded.');
     }
