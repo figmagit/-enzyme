@@ -1,5 +1,4 @@
 import React from 'react';
-import cheerio from 'cheerio';
 import flatten from 'lodash/flatten';
 import unique from 'lodash/uniq';
 import compact from 'lodash/compact';
@@ -513,8 +512,7 @@ class ReactWrapper {
    * @returns {CheerioWrapper}
    */
   render() {
-    const html = this.html();
-    return html === null ? cheerio() : cheerio.load(html).root();
+    throw new Error('(specific to figma/enzyme) ReactWrapper.render() removed to break dependency on cheerio');
   }
 
   /**
