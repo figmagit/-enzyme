@@ -583,7 +583,7 @@ class ShallowWrapper {
    * @returns {CheerioWrapper}
    */
   render() {
-    throw new Error('Cheerio has been removed, can no longer call render()')
+    throw new Error('(specific to figma/enzyme) ShallowWrapper.render() removed to break dependency on cheerio');
   }
 
   /**

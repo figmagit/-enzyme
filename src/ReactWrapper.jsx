@@ -512,7 +512,7 @@ class ReactWrapper {
    * @returns {CheerioWrapper}
    */
   render() {
-    throw new Error('ReactWrapper.render() not valid - cheerio has been removed from source')
+    throw new Error('(specific to figma/enzyme) ReactWrapper.render() removed to break dependency on cheerio');
   }
 
   /**

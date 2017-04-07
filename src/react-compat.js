@@ -22,9 +22,7 @@ let batchedUpdates;
 const React = require('react');
 
 if (REACT013) {
-    // requiring react/lib/ExecutionEnvironment' not working w/ figbuild
-    // so removing from static analysis
-  return
+  throw new Error("(specific to figma/enzyme) Support for React 0.13 was removed to avoid static analysis of require() calls to react-internal modules that were moved in 0.14.");
 } else {
   let ReactDOM;
 

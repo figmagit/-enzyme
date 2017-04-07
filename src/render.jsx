@@ -30,5 +30,5 @@ function createContextWrapperForNode(node, context, childContextTypes) {
 }
 
 export default function render(node, options = {}) {
-  throw new Error('cannot render() - cheerio has been removed from source')
+  throw new Error('(specific to figma/enzyme) render() removed to break dependency on cheerio');
 }
